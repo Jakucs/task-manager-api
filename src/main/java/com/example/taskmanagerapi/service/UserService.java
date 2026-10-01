@@ -38,16 +38,21 @@ public class UserService {
         return userRepository.findById(ID);
     }
 
-    public Optional<User> modifyUserByID(int ID, User user){
+    public Optional<User> modifyUserByID(int ID, UserRequest request){
         Optional<User> user1 = userRepository.findById(ID);
         if (user1.isPresent()) {
             User existing = user1.get();
-            existing.setUserName(user.getUserName());
-            existing.setEmail(user.getEmail());
-            User saved = userRepository.save(existing);  // existing, nem user1
+            existing.setUserName(request.getUserName());
+            existing.setEmail(request.getEmail());
+            existing.setPhoneNumber(request.getPhoneNumber());
+            existing.setCity(request.getCity());
+            existing.setStreetName(request.getStreetName());
+            existing.setHouseNumber(request.getHouseNumber());
+            existing.setZipcode(request.getZipcode());
+            User saved = userRepository.save(existing);
             return Optional.of(saved);
         }
-        return Optional.empty();                         // nem null
+        return Optional.empty();
     }
 
     public void deleteUser(int ID){

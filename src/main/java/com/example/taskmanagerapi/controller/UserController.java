@@ -1,5 +1,6 @@
 package com.example.taskmanagerapi.controller;
 
+import com.example.taskmanagerapi.dto.UserRequest;
 import com.example.taskmanagerapi.model.User;
 import com.example.taskmanagerapi.service.UserService;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public class UserController{
     }
 
     @PostMapping
-    public User addUser(@Valid @RequestBody User user){
+    public User addUser(@Valid @RequestBody UserRequest user){
         return userService.addUser(user);
     }
 
@@ -36,7 +37,7 @@ public class UserController{
     }
 
     @PutMapping("/{id}")
-    public Optional<User> modifyUser(@PathVariable Integer id, @Valid @RequestBody User user){
+    public Optional<User> modifyUser(@PathVariable Integer id, @Valid @RequestBody UserRequest user){
         return userService.modifyUserByID(id, user);
     }
 
