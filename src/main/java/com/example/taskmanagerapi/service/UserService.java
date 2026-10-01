@@ -1,5 +1,6 @@
 package com.example.taskmanagerapi.service;
 
+import com.example.taskmanagerapi.dto.UserRequest;
 import com.example.taskmanagerapi.model.User;
 import com.example.taskmanagerapi.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User addUser(User user){
+    public User addUser(UserRequest request){
+        User user = new User();
+        user.setUserName(request.getUserName());
+        user.setEmail(request.getEmail());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setCity(request.getCity());
+        user.setStreetName(request.getStreetName());
+        user.setHouseNumber(request.getHouseNumber());
+        user.setZipcode(request.getZipcode());
         return userRepository.save(user);
     }
 
