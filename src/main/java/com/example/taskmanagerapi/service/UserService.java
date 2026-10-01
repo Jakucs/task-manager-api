@@ -17,6 +17,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User addUser(User user){
+        return userRepository.save(user);
+    }
+
     public List<User> getAll(){
         return userRepository.findAll();
     }
@@ -25,8 +29,16 @@ public class UserService {
         return userRepository.findById(ID);
     }
 
-    public User modifyUserByID(User user){
-       return userRepository.save(user);
+    public Optional<User> modifyUserByID(int ID, User user){
+        Optional<User> user1 = userRepository.findById(ID);
+        if (user1.isPresent()) {
+            User existing = user1.get();
+            existing.setUserName(user.getUserName());
+            existing.setEmail(user.getEmail());
+            User saved = userRepository.save(existing);  // existing, nem user1
+            return Optional.of(saved);
+        }
+        return Optional.empty();                         // nem null
     }
 
     public void deleteUser(int ID){
