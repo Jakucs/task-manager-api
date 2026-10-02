@@ -1,6 +1,6 @@
-package com.example.taskmanagerapi.model;
+package com.example.taskmanagerapi.dto;
 
-import jakarta.persistence.*;
+import com.example.taskmanagerapi.model.Status;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -8,37 +8,21 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name="tasks")
-public class Task {
-
-    @Id
-    @GeneratedValue
-    private int id;
-    private LocalDate deadline;
+public class TaskRequest {
+    
     @NotBlank
     private String text;
+    private LocalDate deadline;
     @Min(1)
     @Max(5)
     private int importance;
     @NotNull
-    @Enumerated(EnumType.STRING)
     private Status status;
+    @NotNull
+    private Integer userId;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getId() {
-        return id;
+    public String getText() {
+        return text;
     }
 
     public LocalDate getDeadline() {
@@ -49,16 +33,16 @@ public class Task {
         return importance;
     }
 
-    public String getText() {
-        return text;
-    }
-
     public Status getStatus() {
         return status;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void setStatus(Status status) {
@@ -69,11 +53,14 @@ public class Task {
         this.importance = importance;
     }
 
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
     public void setText(String text) {
         this.text = text;
     }
 
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
-    }
+
+
 }
