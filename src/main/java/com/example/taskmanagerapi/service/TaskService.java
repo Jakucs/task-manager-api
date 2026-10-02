@@ -45,6 +45,6 @@ public class TaskService {
             existing.setStatus(task.getStatus());
             return Optional.of(taskRepository.save(existing));
         }
-        return null;
+        return Optional.empty();
     }
 }
